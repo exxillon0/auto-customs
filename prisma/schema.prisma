@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite" // для prod: "postgresql"
+}
+
+model Calculation {
+  id           String   @id @default(cuid())
+  createdAt    DateTime @default(now())
+  input        Json
+  result       Json
+  auction      String
+  auctionPrice Float
+  totalUsd     Float
+  clientName   String?
+  note         String?
+
+  @@index([createdAt])
+}
+
+model CurrencyRate {
+  id       String   @id @default(cuid())
+  date     DateTime @default(now())
+  usdToByn Float
+  eurToByn Float
+  eurToUsd Float
+  source   String   @default("NBRB")
+
+  @@index([date])
+}
+
+model AuctionLocation {
+  id      String  @id @default(cuid())
+  auction String // "copart" | "iaai"
+  code    String
+  name    String
+  country String
+  active  Boolean @default(true)
+
+  @@unique([auction, code])
+}
