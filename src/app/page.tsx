@@ -29,7 +29,7 @@ export default function Home() {
       <header className="border-b bg-white">
         <div className="max-w-6xl mx-auto px-6 py-4 flex flex-wrap items-center justify-between gap-2">
           <h1 className="text-xl font-bold text-gray-900">
-            Калькулятор растаможки авто
+            Калькулятор растаможки авто 🇧🇾
           </h1>
           {rates && (
             <div className="text-xs text-gray-600 flex gap-4">
