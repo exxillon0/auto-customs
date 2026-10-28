@@ -2,6 +2,7 @@ export const DOC_PRICES_BYN = {
   epts: 80,
   registration: 150,
   deregistration: 80,
+  svh: 650,
 };
 
 export const RECYCLING_FEE_BYN = {

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { calcInputSchema } from "@/lib/validation/calculation.schema";
+import { calcAuctionFees } from "@/lib/calc/auction-fees"; // Импортируем функцию сборов
 import type { z } from "zod";
 import type { CalcResult } from "@/lib/calc/types";
 
@@ -30,7 +31,7 @@ export function CalculatorForm({ rates, onResult }: Props) {
       auctionPrice: 5000,
       ageCategory: "3to5",
       engineVolumeCcm: 2000,
-      customsValueEur: 10000,
+      customsValueEur: 10000, // Значение по умолчанию (будет перезаписано)
       conclusionCostByn: 100,
       evaluationCostByn: 200,
       auction: "copart",
@@ -45,7 +46,7 @@ export function CalculatorForm({ rates, onResult }: Props) {
       engineType: "gasoline",
       isPrivileged: false,
       privilegedFeeUsd: 500,
-      docs: { epts: true, registration: true, deregistration: true },
+      docs: { epts: true, registration: true, deregistration: true, svh: true },
       rates: { usdToByn: 3.0, eurToByn: 3.3, eurToUsd: 1.1 },
     },
   });
@@ -53,7 +54,10 @@ export function CalculatorForm({ rates, onResult }: Props) {
   const selectedAuction = useWatch({ control, name: "auction" });
   const isPrivileged = useWatch({ control, name: "isPrivileged" });
   const ageCategory = useWatch({ control, name: "ageCategory" });
+  const auctionPrice = useWatch({ control, name: "auctionPrice" });
+  const currentRates = useWatch({ control, name: "rates" });
 
+  // Эффект для загрузки площадок
   useEffect(() => {
     if (!selectedAuction) return;
     fetch(`/api/locations?auction=${selectedAuction}`)
@@ -65,9 +69,25 @@ export function CalculatorForm({ rates, onResult }: Props) {
       .catch(console.error);
   }, [selectedAuction, setValue]);
 
+  // Эффект для подстановки курсов с сервера
   useEffect(() => {
     if (rates) setValue("rates", rates);
   }, [rates, setValue]);
+
+  // ЭФФЕКТ: Автоматический расчёт таможенной стоимости (Invoice в EUR)
+  // Работает только если выбрано "До 3 лет"
+  useEffect(() => {
+    if (ageCategory === "under3" && auctionPrice && currentRates) {
+      // 1. Считаем сборы аукциона
+      const fees = calcAuctionFees(auctionPrice, selectedAuction);
+      // 2. Инвойс в долларах = ставка + сборы
+      const invoiceUsd = auctionPrice + fees;
+      // 3. Переводим в евро (EUR = USD / eurToUsd)
+      const invoiceEur = invoiceUsd / currentRates.eurToUsd;
+      // 4. Округляем до целого и записываем в форму
+      setValue("customsValueEur", Math.round(invoiceEur));
+    }
+  }, [ageCategory, auctionPrice, selectedAuction, currentRates, setValue]);
 
   const onSubmit = async (data: FormData) => {
     setLoading(true);
@@ -197,11 +217,21 @@ export function CalculatorForm({ rates, onResult }: Props) {
             </select>
           </label>
           
-          <label className="block col-span-full sm:col-span-1">
-            <span className="text-sm text-gray-700">Таможенная стоимость (EUR)</span>
-            <input type="number" {...register("customsValueEur", { valueAsNumber: true })} className="mt-1 block w-full border rounded p-2" />
-            <span className="text-xs text-gray-500 mt-1 block">Указывается в евро!</span>
-          </label>
+          {/* ПОЛЕ ПОКАЗЫВАЕТСЯ ТОЛЬКО ДЛЯ АВТО ДО 3 ЛЕТ И НЕДОСТУПНО ДЛЯ ВВОДА */}
+          {ageCategory === "under3" && (
+            <label className="block col-span-full sm:col-span-1">
+              <span className="text-sm text-gray-700">Таможенная стоимость (EUR) — Invoice</span>
+              <input 
+                type="number" 
+                {...register("customsValueEur", { valueAsNumber: true })} 
+                disabled 
+                className="mt-1 block w-full border rounded p-2 bg-gray-100 text-gray-500 cursor-not-allowed" 
+              />
+              <span className="text-xs text-gray-500 mt-1 block">
+                Рассчитывается автоматически (ставка + сборы аукциона)
+              </span>
+            </label>
+          )}
 
           <label className="flex items-center gap-2 col-span-full mt-2">
             <input type="checkbox" {...register("isPrivileged")} />
@@ -217,7 +247,7 @@ export function CalculatorForm({ rates, onResult }: Props) {
         </div>
       </section>
 
-      {/* Блок Оценки */}
+      {/* Блок Оценки (только для авто до 3 лет) */}
       {ageCategory === "under3" && (
         <section className="bg-blue-50 border border-blue-200 rounded-lg shadow-sm p-6">
           <h2 className="font-semibold text-lg mb-4 text-blue-900">Оценка автомобиля</h2>
@@ -259,6 +289,13 @@ export function CalculatorForm({ rates, onResult }: Props) {
               Снятие с учёта ГАИ
             </span>
             <span className="text-gray-500">80 BYN</span>
+          </label>
+          <label className="flex items-center justify-between gap-2 text-sm">
+            <span className="flex items-center gap-2">
+              <input type="checkbox" {...register("docs.svh")} />
+              Услуги СВХ
+            </span>
+            <span className="text-gray-500">650 BYN</span>
           </label>
         </div>
       </section>

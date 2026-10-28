@@ -10,6 +10,16 @@ exports.id = "vendor-chunks/next";
 exports.ids = ["vendor-chunks/next"];
 exports.modules = {
 
+/***/ "(rsc)/./node_modules/next/font/google/target.css?{\"path\":\"src/app/layout.tsx\",\"import\":\"Manrope\",\"arguments\":[{\"subsets\":[\"latin\",\"cyrillic\"],\"variable\":\"--font-manrope\",\"display\":\"swap\"}],\"variableName\":\"manrope\"}":
+/*!************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/next/font/google/target.css?{"path":"src/app/layout.tsx","import":"Manrope","arguments":[{"subsets":["latin","cyrillic"],"variable":"--font-manrope","display":"swap"}],"variableName":"manrope"} ***!
+  \************************************************************************************************************************************************************************************************************************/
+/***/ ((module) => {
+
+eval("// Exports\nmodule.exports = {\n\t\"style\": {\"fontFamily\":\"'__Manrope_f8ec6e', '__Manrope_Fallback_f8ec6e'\",\"fontStyle\":\"normal\"},\n\t\"className\": \"__className_f8ec6e\",\n\t\"variable\": \"__variable_f8ec6e\"\n};\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiKHJzYykvLi9ub2RlX21vZHVsZXMvbmV4dC9mb250L2dvb2dsZS90YXJnZXQuY3NzP3tcInBhdGhcIjpcInNyYy9hcHAvbGF5b3V0LnRzeFwiLFwiaW1wb3J0XCI6XCJNYW5yb3BlXCIsXCJhcmd1bWVudHNcIjpbe1wic3Vic2V0c1wiOltcImxhdGluXCIsXCJjeXJpbGxpY1wiXSxcInZhcmlhYmxlXCI6XCItLWZvbnQtbWFucm9wZVwiLFwiZGlzcGxheVwiOlwic3dhcFwifV0sXCJ2YXJpYWJsZU5hbWVcIjpcIm1hbnJvcGVcIn0iLCJtYXBwaW5ncyI6IkFBQUE7QUFDQTtBQUNBLFdBQVcsb0ZBQW9GO0FBQy9GO0FBQ0E7QUFDQSIsInNvdXJjZXMiOlsid2VicGFjazovL2F1dG8tY3VzdG9tcy8uL25vZGVfbW9kdWxlcy9uZXh0L2ZvbnQvZ29vZ2xlL3RhcmdldC5jc3M/MzRiNSJdLCJzb3VyY2VzQ29udGVudCI6WyIvLyBFeHBvcnRzXG5tb2R1bGUuZXhwb3J0cyA9IHtcblx0XCJzdHlsZVwiOiB7XCJmb250RmFtaWx5XCI6XCInX19NYW5yb3BlX2Y4ZWM2ZScsICdfX01hbnJvcGVfRmFsbGJhY2tfZjhlYzZlJ1wiLFwiZm9udFN0eWxlXCI6XCJub3JtYWxcIn0sXG5cdFwiY2xhc3NOYW1lXCI6IFwiX19jbGFzc05hbWVfZjhlYzZlXCIsXG5cdFwidmFyaWFibGVcIjogXCJfX3ZhcmlhYmxlX2Y4ZWM2ZVwiXG59O1xuIl0sIm5hbWVzIjpbXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///(rsc)/./node_modules/next/font/google/target.css?{\"path\":\"src/app/layout.tsx\",\"import\":\"Manrope\",\"arguments\":[{\"subsets\":[\"latin\",\"cyrillic\"],\"variable\":\"--font-manrope\",\"display\":\"swap\"}],\"variableName\":\"manrope\"}\n");
+
+/***/ }),
+
 /***/ "(ssr)/./node_modules/next/dist/client/add-base-path.js":
 /*!********************************************************!*\
   !*** ./node_modules/next/dist/client/add-base-path.js ***!

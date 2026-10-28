@@ -26,7 +26,7 @@ export interface CalcInput {
   isPrivileged: boolean;
   privilegedFeeUsd?: number;
 
-  docs: { epts: boolean; registration: boolean; deregistration: boolean };
+  docs: { epts: boolean; registration: boolean; deregistration: boolean; svh: boolean};
 
   rates: { usdToByn: number; eurToByn: number; eurToUsd: number };
 }

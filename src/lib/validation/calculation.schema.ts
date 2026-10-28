@@ -26,10 +26,11 @@ export const calcInputSchema = z.object({
     epts: z.boolean(),
     registration: z.boolean(),
     deregistration: z.boolean(),
+    svh: z.boolean(), 
   }),
   rates: z.object({
     usdToByn: z.number().positive(),
     eurToByn: z.number().positive(),
     eurToUsd: z.number().positive(),
   }),
-});
+}); 
