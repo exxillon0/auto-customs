@@ -52,6 +52,7 @@ export interface CalcResult {
     documents: number;
     privilegedFee: number;
     evaluation: number;
+    buttonFee: number;
   };
   lineItems: CalcLineItem[];
   warnings: string[];

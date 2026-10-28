@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { calcInputSchema } from "@/lib/validation/calculation.schema";
-import { calcAuctionFees } from "@/lib/calc/auction-fees"; // Импортируем функцию сборов
+import { calcAuctionFees } from "@/lib/calc/auction-fees"; 
 import type { z } from "zod";
 import type { CalcResult } from "@/lib/calc/types";
 
@@ -31,7 +31,7 @@ export function CalculatorForm({ rates, onResult }: Props) {
       auctionPrice: 5000,
       ageCategory: "3to5",
       engineVolumeCcm: 2000,
-      customsValueEur: 10000, // Значение по умолчанию (будет перезаписано)
+      customsValueEur: 10000, 
       conclusionCostByn: 100,
       evaluationCostByn: 200,
       auction: "copart",
@@ -39,8 +39,8 @@ export function CalculatorForm({ rates, onResult }: Props) {
       port: "klaipeda",
       
       deliveryToPortUsd: 400,
-      oceanFreightUsd: 1500,
-      deliveryToMinskUsd: 500,
+      oceanFreightUsd: 1000,
+      deliveryToMinskUsd: 1000,
 
       vehicleType: "passenger",
       engineType: "gasoline",

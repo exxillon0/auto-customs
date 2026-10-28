@@ -41,3 +41,5 @@ export const DUTY_RATES_OVER5 = [
   { maxCcm: 3000, eurPerCcm: 5.0 },
   { maxCcm: Infinity, eurPerCcm: 5.7 },
 ];
+
+export const FIXED_BUTTON_FEE_USD = 500;
