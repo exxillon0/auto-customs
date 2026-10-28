@@ -3,7 +3,7 @@ import { calcCustomsDuty } from "./customs-duty";
 import { calcRecyclingFee } from "./recycling-fee";
 import { calcAuctionFees } from "./auction-fees";
 import { toUsd } from "./currency";
-import { DOC_PRICES_BYN, CUSTOMS_FEE_BYN } from "./constants";
+import { DOC_PRICES_BYN, CUSTOMS_FEE_BYN, FIXED_BUTTON_FEE_USD } from "./constants"; // <-- Импортируем
 
 export function calculateTotal(input: CalcInput): CalcResult {
   const warnings: string[] = [];
@@ -40,6 +40,7 @@ export function calculateTotal(input: CalcInput): CalcResult {
     documents: documentsUsd,
     privilegedFee: privilegedUsd,
     evaluation: evaluationUsd,
+    buttonFee: FIXED_BUTTON_FEE_USD, // <-- Добавлено в разбивку
   };
 
   const totalUsd = Object.values(breakdown).reduce((a, b) => a + b, 0);
@@ -54,6 +55,7 @@ export function calculateTotal(input: CalcInput): CalcResult {
     { label: "Утильсбор", amountUsd: recyclingUsd, amountOriginal: recyclingByn, currency: "BYN" },
     { label: "Таможенный сбор", amountUsd: customsFeeUsd, amountOriginal: CUSTOMS_FEE_BYN, currency: "BYN" },
     { label: "Документы", amountUsd: documentsUsd, amountOriginal: documentsByn, currency: "BYN" },
+    { label: "Услуга «Кнопка»", amountUsd: FIXED_BUTTON_FEE_USD, currency: "USD" }, // <-- Добавлено в список
   ];
 
   if (evaluationUsd > 0) {
