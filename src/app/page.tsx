@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { CalculatorForm } from "@/components/calculator/CalculatorForm";
 import { TotalBlock } from "@/components/calculator/TotalBlock";
+import { MethodologyBlock } from "@/components/calculator/MethodologyBlock"; // <-- Добавлен импорт
 import type { CalcResult } from "@/lib/calc/types";
 
 interface Rates {
@@ -25,7 +26,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main className="min-h-screen bg-gray-50 pb-20">
       <header className="border-b bg-white">
         <div className="max-w-6xl mx-auto px-6 py-4 flex flex-wrap items-center justify-between gap-2">
           <h1 className="text-xl font-bold text-gray-900">
@@ -41,6 +42,7 @@ export default function Home() {
         </div>
       </header>
 
+      {/* Основная сетка с калькулятором */}
       <div className="max-w-6xl mx-auto p-6 grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
         <div className="lg:col-span-2">
           <CalculatorForm rates={rates} onResult={setResult} />
@@ -51,6 +53,11 @@ export default function Home() {
             <TotalBlock result={result} />
           </div>
         </aside>
+      </div>
+
+      {/* Блок Методологии */}
+      <div className="max-w-6xl mx-auto px-6">
+        <MethodologyBlock />
       </div>
     </main>
   );
